@@ -21,10 +21,10 @@ function Home (){
             }
             else{
                 try {
-                    // await axios.post("http://localhost:8080/api/users", {
-                    //   name: name,
-                    //   password: password
-                    // });
+                    await axios.post("http://localhost:8080/api/users", {
+                      name: name,
+                      password: password
+                    });
                     toast.success("Амжилттай бүртгэлээ")
                     router.push("/login")
                   } catch (error) {
@@ -34,8 +34,8 @@ function Home (){
         }  
     }
 
-    return <div className="flex justify-center items-center"> 
-        <div className="flex flex-col justify-center items-center mt-[41px] gap-10 w-[500px]"> 
+    return <div className="flex justify-center items-center bg-gray-300"> 
+        <div className="flex flex-col justify-center items-center pt-[41px] gap-10 w-[500px] rounded-3xl border pb-[30px] shadow-2xl bg-white"> 
             <p className="font-bold text-xl"> Бүртгэлийн хуудас </p>    
             <div className="flex flex-col w-[350px]"> 
                 <p className="mb-[15px]"> Username </p>
@@ -58,8 +58,9 @@ function Home (){
                 <div className="mt-[15px] w-full border border-[#D9D9D9] "></div>
                 <button onClick={signUp} className="mt-[25px] bg-gradient-to-r from-[#66D1DF] to-[#E63CFD] text-white py-[15px] mb-[35px] border rounded-4xl"> Бүртгүүлэх </button>
                 
-                <div className="flex justify-center mt-[100px]">
-                    <button> Нэвтрэх </button>
+                <div className="flex justify-center mt-[100px] items-center">
+                    <p> Бүртгэл байгаа юу? </p>
+                    <button className="p-2 text-blue-400" onClick={() => router.push("/login")}> Нэвтрэх </button>
                 </div>
             </div>
         </div>   
