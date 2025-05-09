@@ -21,7 +21,7 @@ function Home (){
             }
             else{
                 try {
-                    await axios.post("http://localhost:8080/api/users", {
+                    await axios.post("http://localhost:8080/api/users/signup", {
                       name: name,
                       password: password
                     });
@@ -34,26 +34,26 @@ function Home (){
         }  
     }
 
-    return <div className="flex justify-center items-center bg-gray-300"> 
-        <div className="flex flex-col justify-center items-center pt-[41px] gap-10 w-[500px] rounded-3xl border pb-[30px] shadow-2xl bg-white"> 
+    return <div className="flex justify-center items-center bg-gray-300 "> 
+        <div className="flex flex-col justify-center items-center pt-[41px] gap-10 mb-[30px] mt-[20px] w-[500px] rounded-3xl border pb-[30px] shadow-2xl bg-white"> 
             <p className="font-bold text-xl"> Бүртгэлийн хуудас </p>    
             <div className="flex flex-col w-[350px]"> 
                 <p className="mb-[15px]"> Username </p>
                 <div className="flex gap-2">
                     <UserIcon/>
-                    <input onChange={(e) => setName(e.target.value)} className="w-full" placeholder="нэрээ оруулна уу"/>
+                    <input  onChange={(e) => setName(e.target.value)} className="w-full" placeholder="нэрээ оруулна уу"/>
                 </div>
                 <div className="mt-[15px] w-full border mb-[34px] border-[#D9D9D9] "></div>
                 <p className="mb-[15px]"> Password </p>
                 <div className="flex gap-2">
                     <UserIcon/>
-                    <input onChange={(e) => setPassword(e.target.value)} className="w-full" placeholder="нууц үг"/>
+                    <input type="password" onChange={(e) => setPassword(e.target.value)} className="w-full" placeholder="нууц үг"/>
                 </div>
                 <div className="mt-[15px] w-full border border-[#D9D9D9] "></div>
                 <p className="mb-[15px] mt-[15px]"> Re-password </p>
                 <div className="flex gap-2">
                     <UserIcon/>
-                    <input onChange={(e) => setRePassword(e.target.value)} className="w-full" placeholder="нууц үгээ давтана уу"/>
+                    <input type="password" onChange={(e) => setRePassword(e.target.value)} className="w-full" placeholder="нууц үгээ давтана уу"/>
                 </div>
                 <div className="mt-[15px] w-full border border-[#D9D9D9] "></div>
                 <button onClick={signUp} className="mt-[25px] bg-gradient-to-r from-[#66D1DF] to-[#E63CFD] text-white py-[15px] mb-[35px] border rounded-4xl"> Бүртгүүлэх </button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,18 +15,40 @@ import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-// Ensure these env vars are defined in your .env.local or similar
 const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
-export function Post() {
+type Post = {
+    id: string;
+    title: string;
+    content: string;
+    imageUrl: string;
+    username: string;
+    createdAt?: string;
+    likeCount: number;
+  };
+type PostProps = {
+    onPostCreated?: () => void;
+};
+
+
+export function Post({ onPostCreated }: PostProps) {
+  const [username, setUsername] = useState<string>("");
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  // Upload to Cloudinary
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Нэвтэрч ор");
+      return;
+    }
+    setUsername(token || "");
+  }, []);
   const uploadToCloudinary = async (file: File): Promise<string> => {
     const formData = new FormData();
     formData.append("file", file);
@@ -50,10 +72,15 @@ export function Post() {
       if (imageFile) {
         imageUrl = await uploadToCloudinary(imageFile);
       }
-      // Send post data to your API
-      await axios.post("/api/posts", { title, content, imageUrl });
+      console.log(imageUrl)
+      const response = await axios.post("http://localhost:8080/api/posts", { title, content, imageUrl, username, likeCount : 0 });
       toast.success("Амжилттай нийтлэлээ");
-      // Reset fields
+
+      const newPost = response.data;
+
+      if (onPostCreated) {
+        onPostCreated(); 
+      }
       setTitle("");
       setContent("");
       setImageFile(null);

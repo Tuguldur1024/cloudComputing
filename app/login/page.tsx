@@ -15,14 +15,14 @@ function Home (){
     const [name, setName] = useState<string>("")
     const [password, setPassword] = useState<string>("")
 
-    const signIn = () =>
+    const signIn =async () =>
     {
         if (name == "" || password == "")
         {
             toast.error("Мэдээллээ бүрэн оруулна уу")
         }
         else{
-            const response = axios.post("http://localhost:8080/api/users/signIn", {
+            const response =await axios.post("http://localhost:8080/api/users/login", {
                 name : name,
                 password : password
             })
@@ -32,16 +32,18 @@ function Home (){
             }
             else
             {
+                console.log(response)
+                localStorage.setItem("token", response.data.username);
                 toast.success("Амжилттай нэвтэрлээ")
-                router.push("")
+                router.push("/")
             }
         }
     }
 
 
     return <div className="flex justify-center items-center bg-gray-300"> 
-        <div className="flex flex-col justify-center items-center pt-[41px] gap-10 w-[500px] rounded-3xl border pb-[30px] shadow-2xl bg-white"> 
-            <p className="font-bold text-xl"> Login </p>    
+        <div className="flex flex-col justify-center items-center mt-[20px] mb-[30px] pt-[41px] gap-10 w-[500px] rounded-3xl border pb-[30px] shadow-2xl bg-white"> 
+            <p className="font-bold text-xl"> Нэвтрэх </p>    
             <div className="flex flex-col w-[350px]"> 
                 <p className="mb-[15px]"> Username </p>
                 <div className="flex gap-2">
@@ -52,7 +54,7 @@ function Home (){
                 <p className="mb-[15px]"> Password </p>
                 <div className="flex gap-2">
                     <UserIcon/>
-                    <input onChange={(e) => setPassword(e.target.value)} className="w-full" placeholder="Хэрэглэгчийн нууц үг"/>
+                    <input type="password" onChange={(e) => setPassword(e.target.value)} className="w-full" placeholder="Хэрэглэгчийн нууц үг"/>
                 </div>
                 <div className="mt-[15px] w-full border border-[#D9D9D9] "></div>
                 <div className="flex justify-end mb-[35px]">
@@ -67,7 +69,7 @@ function Home (){
                         <InstagramIcon/>
                     </div>
                 </div>
-                <div className="flex justify-center mt-[100px] items-center">
+                <div className="flex justify-center mt-[70px] items-center">
                     <p> Бүртгэл байхгүй юу? </p>
                     <button className="p-2 text-blue-400" onClick={() => router.push("/signup")}> Бүртгүүлэх </button>
                 </div>

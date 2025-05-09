@@ -16,7 +16,7 @@ const InstagramIcon = () =>
     <radialGradient id="paint1_radial_22_28" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-8.04019 2.80937) rotate(76.1604) scale(17.4481 86.7976)">
     <stop stopColor="#3771C8"/>
     <stop offset="0.128" stopColor="#3771C8"/>
-    <stop offset="1" stopColor="#6600FF" stop-opacity="0"/>
+    <stop offset="1" stopColor="#6600FF" stopOpacity="0"/>
     </radialGradient>
     <clipPath id="clip0_22_28">
     <rect width="48" height="39" rx="19.5" fill="white"/>
